@@ -62,7 +62,7 @@
                   </tr>
                 </thead>
                 <tbody class="text-sm font-light">
-                  <tr v-if="loans && loans.length === 0">
+                  <tr v-if="!loans.length">
                     <td colspan="4" class="text-center text-lg py-6">No loan records available</td>
                   </tr>
                   <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="loan in loans" :key="loan.id">
@@ -191,6 +191,10 @@
   import { inject } from 'vue';
 
   const themeMode = inject('themeMode');
+
+  const props = defineProps({
+    loans: Array
+  })
 
   const form = useForm({
     customer_name: '',
