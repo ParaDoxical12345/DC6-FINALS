@@ -28,7 +28,7 @@ class RoleandPermissionSeeder extends Seeder
 
 
         $permission_admin = [$add_employee,$delete_employee, $edit_employee, $manage_payroll ,$manage_position];
-        $permission_employee = [$read_payroll];
+        $permission_employee = [$];
 
 
         $role_admin->syncPermissions($permission_admin);

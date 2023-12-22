@@ -8,7 +8,7 @@
         <template #header>
           <div class="flex justify-between">
             <h2 class="font-semibold text-xl leading-tight">List of Loans</h2>
-            <div style="position:relative">
+            <!-- <div style="position:relative">
               <input
                 type="text"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-9 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -28,7 +28,7 @@
                   fill-rule="evenodd"
                 />
               </svg>
-            </div>
+            </div> -->
             <div class="flex">
               <button
                 type="button"
@@ -104,9 +104,14 @@
                                     <input type="text" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.name"/>
                                     <div class="text-red-600" v-if="form.errors.name">{{ form.errors.name }}</div>
 
-                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="rate">Amount</label>
-                                    <input type="number" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.rate"/>
-                                    <div class="text-red-600" v-if="form.errors.rate">{{ form.errors.rate }}</div>
+                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="amount">Amount</label>
+                                    <input type="number" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.amount"/>
+                                    <div class="text-red-600" v-if="form.errors.amount">{{ form.errors.amount }}</div>
+
+                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="due_date">Due date</label>
+                                    <input type="date" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.due_date"/>
+                                    <div class="text-red-600" v-if="form.errors.due_date">{{ form.errors.due_date }}</div>
+
 
                                     <div class="mt-6 flex justify-center gap-x-4">
                                         <SecondaryButton @click="closeAddItemModal">Cancel</SecondaryButton>
@@ -133,9 +138,14 @@
                                     <input type="text" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.name"/>
                                     <div class="text-red-600" v-if="form.errors.name">{{ form.errors.name }}</div>
 
-                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="rate">Amount</label>
-                                    <input type="number" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.rate"/>
-                                    <div class="text-red-600" v-if="form.errors.rate">{{ form.errors.rate }}</div>
+                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="amount">Amount</label>
+                                    <input type="number" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.amount"/>
+                                    <div class="text-red-600" v-if="form.errors.amount">{{ form.errors.amount }}</div>
+
+
+                                    <label class="font-semibold text-sm text-gray-600 text-left block" for="due_date">Due date</label>
+                                    <input type="date" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-gray-600 "  v-model="form.due_date"/>
+                                    <div class="text-red-600" v-if="form.errors.due_date">{{ form.errors.due_date }}</div>
 
                                     <div class="mt-6 flex justify-center gap-x-4">
                                         <SecondaryButton @click="closeUpdateItemModal">Cancel</SecondaryButton>
@@ -180,15 +190,15 @@
   </template>
 
   <script setup>
-  import SideBarLayout from '@/Layouts/SideBarLayout.vue';
-  import { Head, Link, router, useForm } from '@inertiajs/vue3';
-  import moment from 'moment';
-  import { ref, onMounted } from 'vue';
-  import Modal from '@/Components/Modal.vue';
-  import SecondaryButton from '@/Components/SecondaryButton.vue';
-  import PrimaryButton from '@/Components/PrimaryButton.vue';
-  import DangerButton from '@/Components/DangerButton.vue';
-  import { inject } from 'vue';
+    import { defineProps, ref, onMounted } from 'vue';
+    import SideBarLayout from '@/Layouts/SideBarLayout.vue';
+    import { Head, Link, router, useForm } from '@inertiajs/vue3';
+    import moment from 'moment';
+    import Modal from '@/Components/Modal.vue';
+    import SecondaryButton from '@/Components/SecondaryButton.vue';
+    import PrimaryButton from '@/Components/PrimaryButton.vue';
+    import DangerButton from '@/Components/DangerButton.vue';
+    import { inject } from 'vue';
 
   const themeMode = inject('themeMode');
 
@@ -218,10 +228,15 @@
   };
 
   const addItem = () => {
-    form.post('/loans');
+  console.log('Form data before submission:', form.data());
+  form.post('/loans').then(() => {
+    console.log('Form submission successful!');
     form.reset();
     closeAddItemModal();
-  };
+  }).catch((error) => {
+    console.error('Form submission error:', error);
+  });
+};
 
   let showConfirm = ref(false);
   let selectedLoanForDelete = null;

@@ -51,7 +51,7 @@ const submit = () => {
                 <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style="max-width:1000px">
                     <div class="md:flex w-full">
                         <div class="w-full md:w-1/2 flex justify-center items-center bg-green-500">
-                            <img src="https://californiapayroll.com/wp-content/uploads/2022/01/payroll-banner-image.png">
+                            <img src="https://play-lh.googleusercontent.com/Zjw0FYE0pyHfBGDFXztcwg-Q3etnCIxzvfDjT4sXKTp5pw69eZ14VQKflWogSi-4Ytk">
                         </div>
                         <div class="w-full md:w-1/2 py-7 px-5 md:px-10">
                             <div class="text-center mb-10">
